@@ -38,7 +38,9 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            return await _productRepository.GetByIdAsync(id);
+            var specification = new ProductWithTypesAndBrandsSpecification(id);
+
+            return await _productRepository.GetEntityWithSpecification(specification);
         }
 
         [HttpGet("brands")]
