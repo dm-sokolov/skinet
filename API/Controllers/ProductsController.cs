@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -27,7 +28,9 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var products = await _productRepository.ListAllAsync();
+            var specification = new ProductWithTypesAndBrandsSpecification();
+            
+            var products = await _productRepository.ListAsync(specification);
 
             return Ok(products);
         }
